@@ -21,6 +21,11 @@ class _ListPageState extends State<ListPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("List Page"),
+        actions: [
+          IconButton(onPressed: (){
+            
+          }, icon: Icon(Icons.add))
+        ],
       ),
       body: Container(
         constraints: BoxConstraints.expand(),
@@ -34,7 +39,7 @@ class _ListPageState extends State<ListPage> {
                 elevation: 4,
                 child: ListTile(
                   title: Text(listLanguage[index] + " language"),
-                  leading: Text((index + 1).toString()),
+                  leading: Text((index + 1).toString() , textAlign: TextAlign.center,),
                   trailing: IconButton(
                     icon: Icon(
                       Icons.delete,
@@ -42,18 +47,7 @@ class _ListPageState extends State<ListPage> {
                     ),
                     onPressed: () {},
                   ),
-                  subtitle: Row(
-                    children: [
-                      ConstrainedBox(
-                          constraints: BoxConstraints(maxWidth: 200),
-                          child: Text(
-                            "qiwuelqwejkqlwkejlwqkejqlwkejqwlkejqwlekjqwlekqwjelqwkjelqwjeqwlejqwlekqwjelqwkjeqwlkj",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          )),
-                      Icon(Icons.star, size: 15)
-                    ],
-                  ),
+                  subtitle: Text("Description"),
                   minLeadingWidth: 10,
                 ),
               );
