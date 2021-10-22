@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_to_do_list15092021/add_note_page.dart';
 
 class ListPage extends StatefulWidget {
   @override
@@ -23,7 +24,15 @@ class _ListPageState extends State<ListPage> {
         title: Text("List Page"),
         actions: [
           IconButton(onPressed: (){
-            
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context) => AddNotePage(),
+                settings: RouteSettings(
+                  name: "Add Note Page",
+                  arguments: {
+                    "chuoi" : "Xin Chao"
+                  }
+                )
+            ));
           }, icon: Icon(Icons.add))
         ],
       ),
