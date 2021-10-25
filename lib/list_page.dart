@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_to_do_list15092021/add_note_page.dart';
+import 'package:flutter_to_do_list15092021/note_model.dart';
 
 class ListPage extends StatefulWidget {
   @override
@@ -9,13 +11,18 @@ class ListPage extends StatefulWidget {
 
 class _ListPageState extends State<ListPage> {
   // global of state object
-  final List<String> listLanguage = [
-    "Java",
-    "Dart",
-    "PHP",
-    "Python",
-    "Javascript"
+  final List<NoteModel> listNoteModels = [
+    NoteModel(title: "Work1", description: "Do something 1"),
+    NoteModel(title: "Work2", description: "Do something 2"),
+    NoteModel(title: "Work3", description: "Do something 3"),
+    NoteModel(title: "Work4", description: "Do something 4"),
   ];
+
+  void insertNoteModel(NoteModel noteModel){
+    setState(() {
+      listNoteModels.add(noteModel);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +34,8 @@ class _ListPageState extends State<ListPage> {
             Navigator.push(context, MaterialPageRoute(
                 builder: (context) => AddNotePage(),
                 settings: RouteSettings(
-                  name: "Add Note Page",
                   arguments: {
-                    "chuoi" : "Xin Chao"
+                    "insert" : insertNoteModel
                   }
                 )
             ));
@@ -42,12 +48,12 @@ class _ListPageState extends State<ListPage> {
             separatorBuilder: (context, index) {
               return SizedBox(height: 5);
             },
-            itemCount: listLanguage.length,
+            itemCount: listNoteModels.length,
             itemBuilder: (context, index) {
               return Card(
                 elevation: 4,
                 child: ListTile(
-                  title: Text(listLanguage[index] + " language"),
+                  title: Text(listNoteModels[index].title, overflow: TextOverflow.ellipsis),
                   leading: Text((index + 1).toString() , textAlign: TextAlign.center,),
                   trailing: IconButton(
                     icon: Icon(
@@ -56,7 +62,7 @@ class _ListPageState extends State<ListPage> {
                     ),
                     onPressed: () {},
                   ),
-                  subtitle: Text("Description"),
+                  subtitle: Text(listNoteModels[index].description , overflow: TextOverflow.ellipsis),
                   minLeadingWidth: 10,
                 ),
               );
