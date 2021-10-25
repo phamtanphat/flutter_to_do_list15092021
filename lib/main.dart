@@ -22,7 +22,10 @@ class MyApp extends StatelessWidget {
         "/add" : (context) => AddNotePage(),
         "/edit" : (context) => EditNotePage(),
       },
+
     );
   }
 }
+
+
 
