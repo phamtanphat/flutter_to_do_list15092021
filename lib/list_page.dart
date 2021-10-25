@@ -11,12 +11,7 @@ class ListPage extends StatefulWidget {
 
 class _ListPageState extends State<ListPage> {
   // global of state object
-  final List<NoteModel> listNoteModels = [
-    NoteModel(title: "Work1", description: "Do something 1"),
-    NoteModel(title: "Work2", description: "Do something 2"),
-    NoteModel(title: "Work3", description: "Do something 3"),
-    NoteModel(title: "Work4", description: "Do something 4"),
-  ];
+  final List<NoteModel> listNoteModels = [];
 
   void insertNoteModel(NoteModel noteModel){
     setState(() {
@@ -24,8 +19,19 @@ class _ListPageState extends State<ListPage> {
     });
   }
 
+  void updateNoteModel(NoteModel noteModel){
+    setState(() {
+      listNoteModels.forEach((element) {
+        if (element.id == noteModel.id){
+           element = noteModel;
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    print("Build");
     return Scaffold(
       appBar: AppBar(
         title: Text("List Page"),
@@ -35,7 +41,7 @@ class _ListPageState extends State<ListPage> {
                 builder: (context) => AddNotePage(),
                 settings: RouteSettings(
                   arguments: {
-                    "insert" : insertNoteModel
+                    "insert" : insertNoteModel,
                   }
                 )
             ));
@@ -50,20 +56,30 @@ class _ListPageState extends State<ListPage> {
             },
             itemCount: listNoteModels.length,
             itemBuilder: (context, index) {
-              return Card(
-                elevation: 4,
-                child: ListTile(
-                  title: Text(listNoteModels[index].title, overflow: TextOverflow.ellipsis),
-                  leading: Text((index + 1).toString() , textAlign: TextAlign.center,),
-                  trailing: IconButton(
-                    icon: Icon(
-                      Icons.delete,
-                      color: Colors.red,
+              return InkWell(
+                onTap: (){
+                  Navigator.pushNamed(context, "/edit",arguments: {
+                    "update" : updateNoteModel,
+                    "noteModel" : listNoteModels[index]
+                  });
+                },
+                child: Card(
+                  elevation: 4,
+                  child: ListTile(
+                    title: Text(listNoteModels[index].title, overflow: TextOverflow.ellipsis),
+                    leading: Text((index + 1).toString() , textAlign: TextAlign.center,),
+                    trailing: IconButton(
+                      icon: Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),
+                      onPressed: () {
+
+                      },
                     ),
-                    onPressed: () {},
+                    subtitle: Text(listNoteModels[index].description , overflow: TextOverflow.ellipsis),
+                    minLeadingWidth: 10,
                   ),
-                  subtitle: Text(listNoteModels[index].description , overflow: TextOverflow.ellipsis),
-                  minLeadingWidth: 10,
                 ),
               );
             }),
