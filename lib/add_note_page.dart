@@ -8,6 +8,8 @@ class AddNotePage extends StatefulWidget {
 }
 
 class _AddNotePageState extends State<AddNotePage> {
+
+
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
 
@@ -19,6 +21,7 @@ class _AddNotePageState extends State<AddNotePage> {
     super.didChangeDependencies();
     arguments = ModalRoute.of(context)!.settings.arguments as Map;
   }
+
 
   @override
   Widget build(BuildContext context) {

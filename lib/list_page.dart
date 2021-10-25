@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_to_do_list15092021/add_note_page.dart';
+import 'package:flutter_to_do_list15092021/edit_note_page.dart';
 import 'package:flutter_to_do_list15092021/note_model.dart';
 
 class ListPage extends StatefulWidget {
@@ -58,10 +59,8 @@ class _ListPageState extends State<ListPage> {
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: (){
-                  Navigator.pushNamed(context, "/edit",arguments: {
-                    "update" : updateNoteModel,
-                    "noteModel" : listNoteModels[index]
-                  });
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => EditNotePage.initModel(editNoteModel: updateNoteModel, noteModel: listNoteModels[index])));
                 },
                 child: Card(
                   elevation: 4,

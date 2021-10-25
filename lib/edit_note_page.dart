@@ -2,6 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_to_do_list15092021/note_model.dart';
 class EditNotePage extends StatefulWidget {
 
+  late Function editNoteModel;
+  late NoteModel noteModel;
+
+  //primary constructor;
+  EditNotePage();
+
+  // second constructor
+  EditNotePage.initModel({required this.editNoteModel, required this.noteModel});
+
   @override
   _EditNotePageState createState() => _EditNotePageState();
 }
@@ -11,18 +20,14 @@ class _EditNotePageState extends State<EditNotePage> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
 
-  late var arguments;
-  late NoteModel noteModel;
 
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    arguments = ModalRoute.of(context)!.settings.arguments as Map;
-    noteModel = arguments['noteModel'];
 
-    titleController.text = noteModel.title;
-    descriptionController.text = noteModel.description;
+    titleController.text = widget.noteModel.title;
+    descriptionController.text = widget.noteModel.description;
   }
 
   @override
@@ -67,9 +72,9 @@ class _EditNotePageState extends State<EditNotePage> {
               var description = descriptionController.text;
 
               if (title.isNotEmpty && description.isNotEmpty){
-                noteModel.title = title;
-                noteModel.description = description;
-                arguments['update'](noteModel);
+                widget.noteModel.title = title;
+                widget.noteModel.description = description;
+                widget.editNoteModel(widget.noteModel);
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Them thanh cong")));
                 Future.delayed(Duration(seconds: 1), (){
                   Navigator.pop(context);
